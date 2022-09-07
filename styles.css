@@ -42,14 +42,14 @@ body {
     border-right: 1px solid black;
     border-left: 1px solid black;
 }
-.numbers {
+  /*    .numbers {          
     display: flex;
     flex-wrap: wrap;
-    max-width: 330px;
+    max-width: 330px;  
     
    
     
-}
+}  */
 button {  
    height: 80px;
    width: 80px;  
