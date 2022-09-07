@@ -2,7 +2,7 @@ const container = document.querySelector('.container');
 const display = document.querySelector('.input');
 const backspace = document.querySelector('.backspace');
 const numbers = document.querySelectorAll('.number');
-
+const dot = document.querySelector('.dot');
 const operators = document.querySelectorAll('.operator');
 
 const equal = document.querySelector('.equal');
@@ -37,8 +37,15 @@ function handleOperator(op) {
 }
 
 equal.addEventListener('click',   () => {
+  if(currentValue != '' && previousValue != '') {
     calculate();
     p.textContent = previousValue;
+    if(previousValue.length <= 5) {
+       p.textContent = previousValue;
+    } else {
+        p.textContent = previousValue.slice(0,5) + "...";
+    }
+   }
 })
 
 function calculate() {
@@ -51,8 +58,14 @@ function calculate() {
     previousValue = previousValue - currentValue;
         } else if(operator === 'x') {
      previousValue = previousValue * currentValue;
-        } else {
-      previousValue = previousValue / currentValue;
+        } else if (operator === '/') {
+          if (currentValue <= 0) {
+            previousValue = "Error";
+            p.textContent = previousValue;
+            return;
+              
+          }     
+            previousValue = previousValue / currentValue;
       }
         previousValue = roundNumber(previousValue);
         previousValue = previousValue.toString();   
@@ -73,5 +86,24 @@ clear.addEventListener('click', function() {
 })
 
 backspace.addEventListener('click', function () {
-    curremtValue = currentValue.slice(0, -1);
+    deleteLast();
 })
+
+function deleteLast() {
+    currentValue = currentValue.slice(0,-1);
+    p.textContent = currentValue;
+}
+
+
+dot.addEventListener('click', function () {
+    addDecimal();
+})
+function addDecimal() {
+    if(!currentValue.includes('.')) {
+        currentValue += '.';
+    }
+}
+
+
+
+
